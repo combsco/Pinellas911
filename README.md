@@ -1,4 +1,4 @@
-Pinellas 911 - Public Data Frontend
+Pinellas County 911 - Public Data Frontend
 ============
 
 This is a re-design and frontend to Pinellas County, FL's current 911 activity status page. This application is powered by **Meteor JS** and provides a mobile first approach with a beautiful map provided by **MapBox**.
