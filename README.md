@@ -23,6 +23,6 @@ It unoffically replaces http://www.pinellascounty.org/911/ActCallsPub.htm
 - Other awesome features yet to be implemented
 
 ## License
->You can check out the full license [here](https://github.com/combsco/Pinellas911/blob/master/LICENSE)
+>You can check out the full license [here](https://github.com/combsco/Pinellas911/blob/master/LICENSE.md)
 
 This project is licensed under the terms of the **MIT** license.
