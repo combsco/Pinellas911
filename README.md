@@ -20,6 +20,7 @@ It unoffically replaces http://www.pinellascounty.org/911/ActCallsPub.htm
 - Map markers of incidents
 - Map markers of fire stations, and apparatus stationed (work in-progress)
 - Stats of how many incidents today and how many currently active
+- Ability to **Add to Home Screen** and make it look like any other android app!
 - Other awesome features yet to be implemented
 
 ## License
