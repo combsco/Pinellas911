@@ -1,0 +1,29 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
+insecure
+jagi:astronomy
+jagi:astronomy-timestamp-behavior
+jagi:astronomy-validators
+kadira:blaze-layout
+kadira:flow-router
+meteortoys:allthings
+nemo64:bootstrap
+underscore
+zimme:active-route
+arillo:flow-router-helpers
+less
+pauloborges:mapbox
+copleykj:livestamp
+momentjs:moment
+meteorhacks:kadira
+255kb:meteor-status
+meteorhacks:zones
+meteorhacks:fast-render
+mizzao:user-status
+tmeasday:publish-counts
+u2622:persistent-session

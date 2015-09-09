@@ -1,0 +1,108 @@
+<template name="home">
+  <div id="main-row" class="row">
+    {{#if showBanner}}
+    <div class="alert alert-warning alert-dismissible hidden-xs col-md-12" style="margin-bottom: 0px;" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      Welcome to the newly minted Pinellas911.co! Try it on your Android <b>(Add to Home Screen)</b> or iPhone. Old site is still accessible (for now) go to <a href="http://lachesis.pinellas911.co/">lachesis.pinellas911.co</a>.
+    </div>
+    {{/if}}
+    <div id="incident-container" class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+      <!-- <div style="padding-top: 10px; padding-bottom: 10px;">
+        <span class="label label-primary">Active Incidents {{getPublishedCount 'ActiveIncidents'}}</span>
+        <span class="label label-default">Active Users {{getPublishedCount 'ActiveUsers'}}</span>
+      </div> -->
+      <div class="hidden-lg" style="padding-top: 10px; margin-bottom: 30px;">
+        <div class="col-xs-6 text-center">Incidents Today <span style="opacity: 0.5;">{{getPublishedCount 'getIncidentsToday'}}</span></div>
+        <div class="col-xs-6 text-center">Active Incidents <span style="opacity: 0.5;">{{getPublishedCount 'ActiveIncidents'}}</span></div>
+        <!-- <div class="col-xs-4 text-center">Active Users <span style="opacity: 0.5;">{{getPublishedCount 'ActiveUsers'}}</span></div> -->
+      </div>
+      {{#each incidents}} {{> incidentItem}} {{/each}}
+    </div>
+    <div id="map-container" class="hidden-xs col-sm-7 col-md-8 col-lg-7" style="height: 100%">
+      {{> incidentMap}}
+    </div>
+    <div id="ticker-container" class="hidden-xs hidden-sm hidden-md col-lg-2" style="padding: 0; padding-top: 15px;">
+        <div class="col-md-12 text-center" style="color: #fff;">Active Users <span style="opacity: 0.4;">{{getPublishedCount 'ActiveUsers'}}</span></div>
+        <div class="col-md-6 text-center" style="color: #fff;">Incidents Today<br><h1 style="color: #fff; opacity: 0.4; font-size: 5em; margin:0; line-height: 1;">{{getPublishedCount 'getIncidentsToday'}}</h1></div>
+        <div class="col-md-6 text-center" style="color: #fff;">Active Incidents<br><h1 style="color: #fff; opacity: 0.4; font-size: 5em; margin:0; line-height: 1;">{{getPublishedCount 'ActiveIncidents'}}</h1></div>
+      <!-- <div class="col-md-12 text-center">
+        Average Response Time
+      </div> -->
+      <div class="col-md-12" style="padding-right: 8px; padding-left: 8px; padding-top: 10px; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.25);">
+        <!-- <span class="label label-default">New Incident</span> for <span style="color: #fff">540 Trinity Ln N</span> created. -->
+        Working on the history feed to put here... You see this cause you have a big screen! Yay you!<br><br>
+        <span style="color: #fff">hey@pinellas911.co</span> if you have suggestions.
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="incidentMap">
+  <div id="map"></div>
+</template>
+
+<template name="incidentItem">
+  <div class="row" style="border-top: 1px solid #d3e0e9; padding-top: 10px; padding-bottom: 8px;">
+      <div class="col-xs-12 col-sm-8 col-md-8">
+        <h5 style="margin-top:0; margin-bottom:0;">
+            <span style="color: {{getIncidentColor}}"> {{getIncidentName}}</span>
+        </h5>
+      </div>
+      <div class="hidden-xs col-sm-4 col-md-4 text-right">
+        <span style="font-size: 75%" class="text-muted">Incident#{{incidentno}}</span>
+      </div>
+      <div class="col-xs-12">
+        {{location}}, {{city}}
+      </div>
+      <div class="col-xs-12">
+        <!-- <p style="font-size: 16px;"> -->
+          <h5 style="margin-top: 5px; margin-bottom: 10px;">
+          <small>Apparatus</small><br>
+          <div style="padding-top: 2px;">
+          {{#each units}}
+            {{> unitItem}}
+          {{/each}}
+          </div>
+         </h5>
+      </div>
+      <div class="hidden-xs col-sm-6 col-md-6 text-left">
+        <span style="font-size: 75%" class="text-muted">Tactical Channel: {{getFireTac}}</span>
+      </div>
+      <div class="hidden-lg hidden-md hidden-sm col-xs-3 text-left">
+        <span style="font-size: 75%" class="text-muted">Incident#{{incidentno}}</span>
+      </div>
+      <div class="col-xs-4 hidden-sm hidden-md hidden-lg text-center">
+        <span style="font-size: 75%" class="text-muted">Tactical Ch: {{getFireTac}}</span>
+      </div>
+      <div class="col-xs-5 col-sm-offset-0 col-sm-6 col-md-offset-0 col-md-6 text-right">
+        <span style="font-size: 75%" class="text-muted">Received <span data-livestamp="{{getTimestamp}}"></span></span>
+      </div>
+    </div>
+</template>
+
+<template name="unitItem">
+  {{#if status "dispatched"}}
+    <span data-toggle="popover" data-placement="top" data-content="<b>{{getApparatusName}}</b> is being dispatched" style="color: #FFD399;">{{apparatus}}</span>
+  {{/if}}
+  {{#if status "responding"}}
+    <span data-toggle="popover" data-placement="top" data-content="<b>{{getApparatusName}}</b> is responding to the scene" style="color: #E4A905;">{{apparatus}}</span>
+  {{/if}}
+  {{#if status "onscene"}}
+    <span data-toggle="popover" data-placement="auto" data-content="<b>{{getApparatusName}}</b> is on scene" style="color: #B20A31;">{{apparatus}}</span>
+  {{/if}}
+  {{#if status "in command"}}
+    <span data-toggle="popover" data-placement="top" data-content="<b>{{getApparatusName}}</b> is the incident commander" class="badge" style="background: #B20A31; color: #FFF">{{apparatus}}</span>
+  {{/if}}
+  {{#if status "with patient"}}
+    <span data-toggle="popover" data-placement="top" data-content="<b>{{getApparatusName}}</b> is with a patient" style="color: #FF5F63;">{{apparatus}}</span>
+  {{/if}}
+  {{#if status "enroute to hospital"}}
+    <span data-toggle="popover" data-placement="top" data-content="<b>{{getApparatusName}}</b> is enroute to the hospital" style="color: #78A8A8;">{{apparatus}}</span>
+  {{/if}}
+  {{#if status "at hospital"}}
+    <span data-toggle="popover" data-placement="top" data-content="<b>{{getApparatusName}}</b> is at the hospital" style="color: #607878;">{{apparatus}}</span>
+  {{/if}}
+  {{#if status "cleared"}}
+    <span data-toggle="popover" data-placement="top" data-content="<b>{{getApparatusName}}</b> has been cleared from this call" style="color: #C9CFD1;">{{apparatus}}</span>
+  {{/if}}
+</template>
