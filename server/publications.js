@@ -1,4 +1,4 @@
-/*global Meteor Incidents UserStatus Counts*/
+/*global Meteor Incidents UserStatus Counts Stations*/
 
 Meteor.publish('getActiveIncidents', function () {
   Counts.publish(this, 'ActiveIncidents', Incidents.find({
